@@ -11,6 +11,7 @@ import javax.swing.JTextField;
 
 import br.com.fiap.apmd.filmes.components.ChooseOptionComponent;
 import br.com.fiap.apmd.filmes.components.StarRater;
+import br.com.fiap.apmd.filmes.database.dao.FilmeDAO;
 import br.com.fiap.apmd.filmes.model.Filme;
 
 public class SaveButtonListener implements ActionListener {
@@ -24,7 +25,7 @@ public class SaveButtonListener implements ActionListener {
 	private JCheckBox watchedCheck;
 	
 	private StarRater starRater;
-	
+		
 	public SaveButtonListener(JTextField titleField, JTextArea synopsisArea,  JComboBox<String> genreCombo,  ChooseOptionComponent watchPlaceChoose, JCheckBox watchedCheck, StarRater starRater) {
 		this.titleField = titleField;
 		this.synopsisArea = synopsisArea;
@@ -37,12 +38,15 @@ public class SaveButtonListener implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		Filme filme = new Filme();	
-		filme.setTitulo(titleField.getText());
+		filme.setTitulo(titleField.getText());	
 		filme.setSinopse(synopsisArea.getText());
 		filme.setGenero((String) genreCombo.getSelectedItem());
 		filme.setAssistir(watchPlaceChoose.getValue());
 		filme.setAssistido(watchedCheck.isSelected());
 		filme.setAvaliacao(starRater.getSelection());
+		
+		FilmeDAO dao = new FilmeDAO();
+		dao.create(filme);
 	
 		JOptionPane.showMessageDialog(null, 
 				"Título: " + filme.getTitulo() 
@@ -52,6 +56,18 @@ public class SaveButtonListener implements ActionListener {
 			+ "\nAssistido: " + filme.isAssistido()
 			+ "\nAvaliação: " + filme.getAvaliacao()
 		);
+		
+
+		titleField.setText(null);
+		synopsisArea.setText(null);
+		
+		genreCombo.setSelectedItem(null);
+		watchedCheck.setSelected(false);
+		
+		watchPlaceChoose.clearSelection();
+				
+		starRater.setRating(0);
+		starRater.setSelection(0);	
 	}
 	
 }

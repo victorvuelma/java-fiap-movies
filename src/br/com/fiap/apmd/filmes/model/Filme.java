@@ -1,7 +1,17 @@
 package br.com.fiap.apmd.filmes.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Filme {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private long id;
+	
 	private String titulo;
 	private String sinopse;
 	
@@ -10,6 +20,10 @@ public class Filme {
 	
 	private boolean assistido;
 	private float avaliacao;
+	
+	public long getId() {
+		return id;
+	}
 	
 	public String getTitulo() {
 		return titulo;

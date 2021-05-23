@@ -43,6 +43,18 @@ public class ChooseOptionComponent extends JPanel {
 		return null;
 	}
 	
+	public void setValue(String value) {
+		for (Enumeration<AbstractButton> buttons = this.buttonGroup.getElements(); buttons.hasMoreElements();) {
+            AbstractButton button = buttons.nextElement();
+
+            if (button.getText().equals(value)) {
+                button.setSelected(true);
+            } else {
+            	button.setSelected(false);
+            }
+        }
+	}
+	
 	public void clearSelection() {
 		this.buttonGroup.clearSelection();
 	}
