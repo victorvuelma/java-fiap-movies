@@ -169,6 +169,7 @@ public class App extends JFrame implements ActionListener {
 
 		this.add(tabsPane);
 
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(600, 330);
 		this.setVisible(true);
 	}
